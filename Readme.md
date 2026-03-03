@@ -7,8 +7,7 @@ The architecture follows cloud best practices including network isolation, auto 
 
 ## ----------- Architecture ---------------
 
-
-demo-images-2602/production-grade-aws-three-tier-infra.png
+![alt text](demo-images-2602/production-grade-aws-three-tier-infra.png)
 
 ```
 User

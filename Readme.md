@@ -7,6 +7,22 @@ The architecture follows cloud best practices including network isolation, auto 
 
 ## ----------- Architecture ---------------
 
+
+demo-images-2602/production-grade-aws-three-tier-infra.png
+
+```
+User
+  ↓
+Route53
+  ↓
+ALB (Public Subnet)
+  ↓
+Auto Scaling Group (Private Subnet)
+  ↓
+RDS (Private Subnet)
+
+```
+
 ### Architecture Components
 - Custom VPC across 2 Availability Zones
 - Public and Private Subnets
@@ -65,6 +81,7 @@ The architecture follows cloud best practices including network isolation, auto 
 
 ## Project folder structure
 
+```
 three-tier-aws-infra/
 │
 ├── README.md
@@ -86,6 +103,7 @@ three-tier-aws-infra/
 │
 ├── userdata.sh          # EC2 bootstrap script
 
+```
 
 ###  Step-by-Step Deployment Guide
 
@@ -167,6 +185,13 @@ Step 5: Deploy Infrastructure
 ```
 terraform apply
 ```
+
+Step 6: Cleanup resources.
+
+```
+terraform destroy
+```
+
 
 Test your domain:
 
@@ -539,13 +564,29 @@ Verify
 
 ![alt text](demo-images-2602/tf-state-list.png) 
 
+What Makes This Production-Grade
+
+- No public EC2 exposure
+
+- No SSH
+
+- Private database
+
+- HTTPS enforced
+
+- Multi-AZ deployment (Set Multi-AZ to true)
+
+- Scalable application layer
+
+- Clean Terraform structure
+
 
 #### Step 13 — Optional Enhancements
 
-- random password generation for RDS
+- Random password generation for RDS (ssm.txt is ssm.tf to enable this)
 
-- DB read replica/Multi-az DB configuration
+- DB read replica/Multi-AZ DB configuration
 
-- monitoring
+- Monitoring
 
 - WAF integration

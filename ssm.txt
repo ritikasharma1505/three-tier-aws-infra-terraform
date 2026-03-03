@@ -1,0 +1,28 @@
+# # ---------------- Store DB Password Securely ----------------
+# resource "aws_ssm_parameter" "db_password" {
+#   name  = "/three-tier-demo/db/password"
+#   type  = "SecureString"
+#   value = "StrongPassword@123"   # change once
+
+#   tags = {
+#     Name = "db-password"
+#   }
+# }
+
+# ---------------- Generate Secure Password ----------------
+resource "random_password" "db_password" {
+  length           = 16
+  special          = true
+  override_special = "!@#$%^&*"
+}
+
+# ---------------- Store DB Password Securely ----------------
+resource "aws_ssm_parameter" "db_password" {
+  name  = "/three-tier-demo/db/password"
+  type  = "SecureString"
+  value = random_password.db_password.result
+
+  tags = {
+    Name = "db-password"
+  }
+}
